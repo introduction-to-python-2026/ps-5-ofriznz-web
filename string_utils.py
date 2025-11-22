@@ -2,19 +2,58 @@
 
 
 def split_before_uppercases(formula):
-    pass  # replace the pass with your code
+    split_formula = []
+    start = 0
+    for end in range(1, len(formula)):
+        if formula[end].isupper():
+           split_formula.append(formula[start:end])
+           start = end 
+            
+    if formula:  
+       split_formula.append(formula[start:len(formula)])  
+  
+    return split_formula
 
 def split_at_digit(formula):
-    pass  # replace the pass with your code
+    digit_location = 1
+    for char in formula[1:]:
+        if char.isdigit():
+            break
+        digit_location += 1
+    if digit_location == len(formula):
+        return (formula, 1)
+    return (formula[:digit_location], int(formula[digit_location:]))
 
 def count_atoms_in_molecule(molecular_formula):
-    """Takes a molecular formula (string) and returns a dictionary of atom counts.  
-    Example: 'H2O' → {'H': 2, 'O': 1}"""
+    atom_counts = {}
+    start = 0
+    
+    for end in range(1, len(molecular_formula)):
+        if molecular_formula[end].isupper():
+            formula_part = molecular_formula[start:end]
+            atom_name, atom_count_str = split_at_digit(formula_part)
+            atom_count_int = int(atom_count_str)
+
+            if atom_name not in atom_counts:
+                atom_counts[atom_name] = atom_count_int
+            else:
+                atom_counts[atom_name] += atom_count_int
+
+            start = end
+
+    if start < len(molecular_formula):
+        formula_part = molecular_formula[start:]
+        atom_name, atom_count_str = split_at_digit(formula_part)
+        atom_count_int = int(atom_count_str)
+        
+        if atom_name not in atom_counts:
+            atom_counts[atom_name] = atom_count_int
+        else:
+            atom_counts[atom_name] += atom_count_int
+
+    return atom_counts
 
     # Step 1: Initialize an empty dictionary to store atom counts
-
-    for atom in split_by_capitals(molecular_formula):
-        atom_name, atom_count = split_at_number(atom)
         
         # Step 2: Update the dictionary with the atom name and count
 
