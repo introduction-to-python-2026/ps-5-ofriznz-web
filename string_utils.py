@@ -1,4 +1,4 @@
-def split_before_uppercases(formula):
+def split_before_uppercases(formula): 
     split_formula = []
     start = 0
     for end in range(1, len(formula)):
